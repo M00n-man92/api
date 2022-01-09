@@ -28,6 +28,7 @@ app.use("/api/cart",cart)
 app.use("/api/order",order)
 app.use("/api/stripe",pay)
 
+console.log(__dirname)
 app.use(express.static(path.join(__dirname, "/ecoclient")));
 
 app.get('*', (req, res) => {
