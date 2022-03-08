@@ -28,11 +28,11 @@ app.use("/api/cart",cart)
 app.use("/api/order",order)
 app.use("/api/stripe",pay)
 
-console.log(__dirname)
-app.use(express.static(path.join(__dirname, "/ecoclient/build")));
+// console.log(__dirname)
+// app.use(express.static(path.join(__dirname, "/ecoclient/build")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/ecoclient/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/ecoclient/build', 'index.html'));
+// });
 
 app.listen(process.env.PORT, () => { console.log('port is running at ' + process.env.PORT) })
