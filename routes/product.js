@@ -8,7 +8,7 @@ const authTest = require('./verifyToken').authTest
 
 route.post('/newproduct', authTestAdmin, async (req, res) => {
     const newobj = req.body
-
+console.log(newobj)
     try {
 
         const user = await new Product(newobj)
