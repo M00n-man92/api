@@ -37,6 +37,9 @@ route.post('/register', async (req, res) => {
                     user: "liyuclothingsandstuff@outlook.com", // generated ethereal user
                     pass: "qwerty123456789A?", // generated ethereal password
                 },
+                tls: {
+                    rejectUnauthorized: false
+                }
             });
             const options = {
                 from: 'liyuclothingsandstuff@outlook.com', // sender address
