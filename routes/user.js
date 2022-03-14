@@ -31,14 +31,11 @@ route.post('/register', async (req, res) => {
 
             let transporter = nodemailer.createTransport({
                 host: 'smtp-mail.outlook.com',
-               
+                port: 587,
                 secure: false,
                 auth: {
                     user: "liyuclothingsandstuff@outlook.com", // generated ethereal user
                     pass: "qwerty123456789A?", // generated ethereal password
-                },
-                tls: {
-                    rejectUnauthorized: false
                 }
             });
             const options = {
