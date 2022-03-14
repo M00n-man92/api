@@ -25,7 +25,8 @@ route.post('/register', async (req, res) => {
         if (newuser) {
             console.log("herer")
             const token = jwt.sign({ id: newuser._id }, process.env.JWT_CONFORMATION_PASS, { expiresIn: "1d" })
-            const url = `http://localhost:3000/api/user/confirmation/${token}`
+            // http://localhost:3000/api/user/confirmation/${token}
+            const url = `https://jazzythings.herokuapp.com/api/user/confirmation/${token}`
             console.log(url)
 
             let transporter = nodemailer.createTransport({
