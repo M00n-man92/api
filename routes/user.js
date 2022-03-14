@@ -31,7 +31,7 @@ route.post('/register', async (req, res) => {
 
             let transporter = nodemailer.createTransport({
                 host: 'smtp-mail.outlook.com',
-                port: 587,
+                port: 25,
                 secure: false,
                 auth: {
                     user: "liyuclothingsandstuff@outlook.com", // generated ethereal user
