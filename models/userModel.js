@@ -9,8 +9,8 @@ const schema = new mongoose.Schema({
     email: { type: String, unique: true,required: true  },
     password: { type: String, min: [8,"please enter more characters"], required: true },
     profilepic: { type: String, default: "" },
-    isAdmin:{type:Boolean,default:false}
-
+    isAdmin:{type:Boolean,default:false},
+    isConfirmed:{type:Boolean,default:false}
 }, { timestamps: true });
 /* schema.methods.getSignedToken = async () => {
     const user = this

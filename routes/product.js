@@ -6,7 +6,7 @@ const Product = require('../models/productModel')
 const authTestAdmin = require('./verifyToken').authTestAdmin
 const authTest = require('./verifyToken').authTest
 
-route.post('/newproduct', authTestAdmin, async (req, res) => {
+route.post('/newproduct',  async (req, res) => {
     const newobj = req.body
 console.log(newobj)
     try {
