@@ -119,7 +119,7 @@ route.get('/confirmation/:token', async (req, res) => {
             console.log(founduser)
             const { password, isConfirmed, isAdmin, ...others } = founduser._doc
         //    http://localhost:3000/login 
-           res.status(301).redirect("https://loving-mcclintock-b8f6dd.netlify.app/login")
+           res.status(301).redirect("https://leyuclothing.herokuapp.com/login")
         }
     }
     catch (e) {
@@ -142,7 +142,7 @@ route.get('/recharge/:token', async (req, res) => {
         const id = decoded.payload.id
         console.log(decoded)
         // http://localhost:3000/forgot/${token}
-       res.status(301).redirect(`https://loving-mcclintock-b8f6dd.netlify.app/forgot/${token}`)
+       res.status(301).redirect(`https://leyuclothing.herokuapp.com/forgot/${token}`)
 
     }
     catch (e) {
