@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken')
 const authTestAdmin = require('./verifyToken').authTestAdmin
 const authTest = require('./verifyToken').authTest
 const nodemailer = require("nodemailer");
-
+const gravatar = require('gravatar')
+const Conversation = require('../models/conversationModel')
 
 route.post('/register', async (req, res) => {
     const { name, password, email } = req.body
@@ -20,10 +21,22 @@ route.post('/register', async (req, res) => {
         }
         const newpass = await genert(password)
         const user = new User({ name: name, email: email, password: newpass })
-
+        const avatar = await gravatar.url(user.email, {
+            s: '200',
+            r: 'pg',
+            d: 'mm'
+        })
+        user.profilepic = avatar
         const newuser = await user.save()
+
         if (newuser) {
             console.log("herer")
+            const makeconvo = new Conversation({ members: [newuser.id, "622eed5ac3211e590b0761ae"] })
+                    console.log(makeconvo)
+                        const newmakeconvo = await makeconvo.save()
+                        if (!newmakeconvo) {
+                            console.log("something went wrong")
+                        }
             const token = jwt.sign({ id: newuser._id }, process.env.JWT_CONFORMATION_PASS, { expiresIn: "1d" })
             // http://localhost:3000/api/user/confirmation/${token}
             const url = `https://jazzythings.herokuapp.com/api/user/confirmation/${token}`
@@ -53,7 +66,7 @@ route.post('/register', async (req, res) => {
                 }
                 if (info) {
                     console.log(info)
-
+                    
                     const { password, isAdmin, isConfirmed, ...others } = newuser._doc
                     return res.status(201).json({ success: true, msg: "registered successfully, please check your email to login", data: others })
                 }
@@ -114,12 +127,14 @@ route.get('/confirmation/:token', async (req, res) => {
     console.log(user.id)
     try {
         const founduser = await User.findOneAndUpdate({ _id: user.id }, { $set: { isConfirmed: true } }, { new: true })
+        
 
         if (founduser) {
             console.log(founduser)
             const { password, isConfirmed, isAdmin, ...others } = founduser._doc
-        //    http://localhost:3000/login 
-           res.status(301).redirect("https://leyuclothing.herokuapp.com/login")
+            
+            //    http://localhost:3000/login 
+            res.status(301).redirect("https://leyuclothing.herokuapp.com/login")
         }
     }
     catch (e) {
@@ -132,9 +147,9 @@ route.get('/confirmation/:token', async (req, res) => {
 
 route.get('/recharge/:token', async (req, res) => {
     const token = req.params.token
-    const password=req.body.password
-    
-    
+    const password = req.body.password
+
+
     try {
 
         const decoded = await jwt.verify(token, process.env.JWT_CONFORMATION_PASS, { complete: true })
@@ -142,7 +157,7 @@ route.get('/recharge/:token', async (req, res) => {
         const id = decoded.payload.id
         console.log(decoded)
         // http://localhost:3000/forgot/${token}
-       res.status(301).redirect(`https://leyuclothing.herokuapp.com/forgot/${token}`)
+        res.status(301).redirect(`https://leyuclothing.herokuapp.com/forgot/${token}`)
 
     }
     catch (e) {
@@ -161,7 +176,7 @@ route.get('/reset/:email', async (req, res) => {
             const tokenn = await jwt.sign({ id: foundit._id }, process.env.JWT_CONFORMATION_PASS, { expiresIn: "1d" })
             // const url = `http://localhost:5000/api/user/recharge/${emailtoken}`
             // const url = `http://localhost:5000/api/user/recharge/${tokenn}`
-            const url =  ` https://jazzythings.herokuapp.com/api/user/recharge/${tokenn}`
+            const url = ` https://jazzythings.herokuapp.com/api/user/recharge/${tokenn}`
             let transporter = nodemailer.createTransport({
                 host: 'smtp-mail.outlook.com',
                 port: 587,
@@ -217,14 +232,14 @@ route.put('/update/:id', authTestAdmin, async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             $set: req.body
         }, { new: true })
-        if(updatedUser){
-            const[password,_id,token,...others]=updatedUser._doc
+        if (updatedUser) {
+            const [password, _id, token, ...others] = updatedUser._doc
             return res.status(201).json({ success: true, msg: "update complete", data: others })
         }
-        else{
-            return res.status(409).json({ success: false, msg: "something went wrong."})
+        else {
+            return res.status(409).json({ success: false, msg: "something went wrong." })
         }
-        
+
     }
     catch (e) {
         return res.status(500).json({ success: false, msg: "error on " + e })
@@ -275,6 +290,23 @@ route.get('/find/:id', authTest, async (req, res) => {
 
     }
 })
+route.get('/find/:id/:nonid', authTest, async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.nonid)
+        if (!user) {
+            return res.status(401).json({ success: false, msg: "no such user" })
+
+
+        }
+        const { password, ...others } = user._doc
+        return res.status(201).json({ succsess: true, msg: "request completed successfully", data: others })
+    }
+    catch (e) {
+        return res.status(500).json({ success: false, msg: "error on " + e })
+
+    }
+})
 route.get('/status', authTest, async (req, res) => {
     const date = new Date();
     const lastyear = new Date(date.setFullYear(date.getFullYear() - 1))
@@ -293,46 +325,46 @@ route.get('/status', authTest, async (req, res) => {
 
 })
 
-route.put("/userupdate/:token",  async (req, res) => {
+route.put("/userupdate/:token", async (req, res) => {
     console.log(req.body.password)
-    
-    
+
+
     if (req.body.password) {
         req.body.password = await genert(req.body.password)
     }
 
     const token = req.params.token
-   console.log(req.body.password)
-    
-    
+    console.log(req.body.password)
+
+
     try {
 
         const decoded = await jwt.verify(token, process.env.JWT_CONFORMATION_PASS, { complete: true })
 
         const id = decoded.payload.id
         console.log(id)
-        const updatedUser = await User.findOneAndUpdate({_id:id}, {
-            $set: {password:req.body.password}
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, {
+            $set: { password: req.body.password }
         }, { new: true })
-        
 
-        if(updatedUser){
+
+        if (updatedUser) {
             console.log("here")
-           console.log(updatedUser)
+            console.log(updatedUser)
             // res.status(301).redirect("http://localhost:3000/login")
             return res.status(201).json({ success: true, msg: "update complete, proceed to login page" })
-            
+
         }
-        else{
-            return res.status(409).json({ success: false, msg: "something went wrong."})
+        else {
+            return res.status(409).json({ success: false, msg: "something went wrong." })
         }
-        
+
 
     }
     catch (e) {
         return res.status(500).json({ success: false, msg: "error on pur part. we are on it now" })
     }
-    
+
 
 })
 

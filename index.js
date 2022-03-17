@@ -4,6 +4,7 @@ const mongoose = require('./mongoose');
 const app = express();
 const path=require('path')
 const dotenv = require('dotenv')
+// const io=require("socket.io")()
 
 dotenv.config()
 app.use(express.json())
@@ -13,7 +14,14 @@ const producs=require('./routes/product')
 const cart=require('./routes/cart')
 const order=require('./routes/order')
 const pay=require('./routes/stripe')
+const conversation=require('./routes/conversation')
+const message=require('./routes/message')
 const cors = require('cors')
+ /// socket.io
+
+
+
+////
 app.use(cors({
     credentials:true,
     origin:true,
@@ -27,6 +35,8 @@ app.use("/api/product",producs)
 app.use("/api/cart",cart)
 app.use("/api/order",order)
 app.use("/api/stripe",pay)
+app.use("/api/conversation",conversation)
+app.use("/api/message",message)
 
 // console.log(__dirname)
 // app.use(express.static(path.join(__dirname, "/ecoclient/build")));
