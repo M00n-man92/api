@@ -90,7 +90,7 @@ route.post('/login', async (req, res) => {
         const user = await User.findOne({ email })
         if (!user) {
             // console.log("pills")
-            return res.status(400).json({ success: false, msg: "no such email", data: null })
+            return res.status(400).json({ success: false, msg: "Incorrect Credentials", data: null })
 
         }
         if (user.isConfirmed === false) {
