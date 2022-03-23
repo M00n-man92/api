@@ -6,7 +6,7 @@ const Product = require('../models/productModel')
 const authTestAdmin = require('./verifyToken').authTestAdmin
 const authTest = require('./verifyToken').authTest
 
-route.post('/newproduct',  async (req, res) => {
+route.post('/newproduct', authTestAdmin, async (req, res) => {
     const newobj = req.body
 console.log(newobj)
     try {
@@ -36,7 +36,7 @@ console.log(newobj)
 
 
 })
-route.put('/update/:id', async (req, res) => {
+route.put('/update/:id', authTestAdmin,async (req, res) => {
     console.log(req.params.id)
 
     try {
@@ -58,7 +58,7 @@ route.put('/update/:id', async (req, res) => {
     }
 
 })
-route.delete('/delete/:id', async (req, res) => {
+route.delete('/delete/:id', authTestAdmin,async (req, res) => {
     try {
 
         const product = await Product.findOneAndDelete({ _id: req.params.id })
