@@ -90,17 +90,31 @@ route.get('/find/:id', async (req, res) => {
 
     }
 })
+
 route.get('/find', async (req, res) => {
     const qcatagory = req.query.catagory
     const qnew = req.query.new
+    const qsex=req.query.sex
     let product
+    console.log(qsex,qcatagory)
     try {
-        if (qcatagory) {
+       if (qsex&&qcatagory) {
+            console.log("hello world")
+            product = await Product.find({ catagory:  [qsex,qcatagory] })
+        }
+        else if (qcatagory) {
+            console.log("qcatagory")
             product = await Product.find({ catagory: { $in: [qcatagory] } })
+        }
+        else if (qsex) {
+            console.log("qsex")
+            product = await Product.find({ catagory: { $in: [qsex] } })
         }
         else if (qnew) {
             product = await Product.find().sort({ createdAt: -1 }).limit(2)
         }
+        
+
         else {
             product = await Product.find()
         }

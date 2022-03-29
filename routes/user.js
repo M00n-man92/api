@@ -101,6 +101,7 @@ route.post('/login', async (req, res) => {
 
             const real = await validPassword(password, realpass)
             if (!real) {
+                // console.log("be a dicl")
                 return res.status(400).json({ success: false, msg: "Incorrect Credentials", data: null })
 
             }
@@ -108,6 +109,7 @@ route.post('/login', async (req, res) => {
                 const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_PASS, { expiresIn: "3d" })
 
                 const { password, ...others } = user._doc
+                console.log(user)
 
                 return res.status(201).json({ success: true, msg: "login success", data: { ...others, token } })
             }
