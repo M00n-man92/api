@@ -132,6 +132,31 @@ route.get('/find', async (req, res) => {
 
     }
 })
+
+route.get('/find/limit/home', async (req, res) => {
+    
+    let product
+    // console.log(qsex,qcatagory)
+    try {
+       
+            product = await Product.find().limit(20)
+        
+
+        if (!product) {
+            return res.status(401).json({ success: false, msg: "no such product" })
+
+
+        }
+
+        return res.status(201).json({ succsess: true, msg: "request completed successfully", data: product })
+    }
+    catch (e) {
+        return res.status(500).json({ success: false, msg: "error on " + e })
+
+    }
+})
+
+
 route.get('/search', async (req, res) => {
     const q = req.query.q
     try {
