@@ -136,6 +136,7 @@ route.get('/confirmation/:token', async (req, res) => {
             const { password, isConfirmed, isAdmin, ...others } = founduser._doc
             
             //    http://localhost:3000/login 
+            // http://localhost:3000/authentication/sign-in
             res.status(301).redirect("https://leyuclothing.herokuapp.com/login")
         }
     }
@@ -159,7 +160,8 @@ route.get('/recharge/:token', async (req, res) => {
         const id = decoded.payload.id
         console.log(decoded)
         // http://localhost:3000/forgot/${token}
-        res.status(301).redirect(`https://leyuclothing.herokuapp.com/forgot/${token}`)
+        // https://leyuclothing.herokuapp.com/forgot/${token}
+        res.status(301).redirect(`http://localhost:3000/authentication/change/${token}`)
 
     }
     catch (e) {
