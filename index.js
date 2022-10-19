@@ -37,7 +37,6 @@ app.use("/api/order",order)
 app.use("/api/stripe",pay)
 app.use("/api/conversation",conversation)
 app.use("/api/message",message)
-
 // console.log(__dirname)
 // app.use(express.static(path.join(__dirname, "/ecoclient/build")));
 
