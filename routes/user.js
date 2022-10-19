@@ -32,11 +32,11 @@ route.post('/register', async (req, res) => {
         if (newuser) {
             console.log("herer")
             const makeconvo = new Conversation({ members: [newuser.id, "622eed5ac3211e590b0761ae"] })
-                    console.log(makeconvo)
-                        const newmakeconvo = await makeconvo.save()
-                        if (!newmakeconvo) {
-                            console.log("something went wrong")
-                        }
+            console.log(makeconvo)
+            const newmakeconvo = await makeconvo.save()
+            if (!newmakeconvo) {
+                console.log("something went wrong")
+            }
             const token = jwt.sign({ id: newuser._id }, process.env.JWT_CONFORMATION_PASS, { expiresIn: "1d" })
             // http://localhost:3000/api/user/confirmation/${token}
             const url = `https://jazzythings.herokuapp.com/api/user/confirmation/${token}`
@@ -66,7 +66,7 @@ route.post('/register', async (req, res) => {
                 }
                 if (info) {
                     console.log(info)
-                    
+
                     const { password, isAdmin, isConfirmed, ...others } = newuser._doc
                     return res.status(201).json({ success: true, msg: "registered successfully, please check your email to login", data: others })
                 }
@@ -83,6 +83,51 @@ route.post('/register', async (req, res) => {
 
 })
 
+route.post('/coffee', async (req, res) => {
+    const { name, age, email, message } = req.body
+
+    try {
+        let transporter = nodemailer.createTransport({
+            host: 'smtp-mail.outlook.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: "liyuclothingsandstuff@outlook.com", // generated ethereal user
+                pass: "qwerty123456789A?", // generated ethereal password
+            }
+        });
+        const options = {
+            from: 'liyuclothingsandstuff@outlook.com', // sender address
+            to: "dagmabebe00@gmail.com", // list of receivers
+            subject: `${name} has sent an order with this email < ${email} >   with ${age} type of coffee ${message}`, // Subject line
+
+
+
+        }
+
+        await transporter.sendMail(options, (error, info) => {
+            if (error) {
+                console.log("there is  a problem " + error)
+                return res.status(409).json({ success: false, msg: "email not sent", data: error })
+            }
+            if (info) {
+                console.log(info)
+
+                const { password, isAdmin, isConfirmed, ...others } = newuser._doc
+                return res.status(201).json({ success: true, msg: "registered successfully, please check your email to login", data: others })
+            }
+        }
+        );
+
+    
+
+
+    }
+    catch (e) {
+    return res.status(500).json({ success: false, error: e })
+}
+
+})
 route.post('/login', async (req, res) => {
     const { email, password } = req.body
     // console.log(email,password)
@@ -129,12 +174,12 @@ route.get('/confirmation/:token', async (req, res) => {
     console.log(user.id)
     try {
         const founduser = await User.findOneAndUpdate({ _id: user.id }, { $set: { isConfirmed: true } }, { new: true })
-        
+
 
         if (founduser) {
             console.log(founduser)
             const { password, isConfirmed, isAdmin, ...others } = founduser._doc
-            
+
             //    http://localhost:3000/login 
             // http://localhost:3000/authentication/sign-in
             res.status(301).redirect("https://leyuclothing.herokuapp.com/login")
