@@ -98,8 +98,9 @@ route.post('/coffee', async (req, res) => {
         });
         const options = {
             from: 'liyuclothingsandstuff@outlook.com', // sender address
-            to: "dagmabebe00@gmail.com", // list of receivers
-            subject: `${name} has sent an order with this email < ${email} >   with ${age} type of coffee ${message}`, // Subject line
+            to: "contact@diligentts.com", // list of receivers
+            subject: ` ${name} has sent an order with this email **** ${email} *****
+               asking for the *** ${age} **** type of coffee with the message *** ${message} ***`, // Subject line
 
 
 
@@ -113,8 +114,8 @@ route.post('/coffee', async (req, res) => {
             if (info) {
                 console.log(info)
 
-                const { password, isAdmin, isConfirmed, ...others } = newuser._doc
-                return res.status(201).json({ success: true, msg: "registered successfully, please check your email to login", data: others })
+                // const { password, isAdmin, isConfirmed, ...others } = newuser._doc
+                return res.status(201).json({ success: true, msg: "message has been sent. we will get back to you as soon as we can." })
             }
         }
         );
