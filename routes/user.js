@@ -98,7 +98,7 @@ route.post('/coffee', async (req, res) => {
         });
         const options = {
             from: 'SheramiDev@outlook.com', // sender address
-            to: "azraelnumb00@gmail.com", // list of receivers
+            to: "contact@diligentts.com", // list of receivers
             subject: ` ${name} has sent an order with this email **** ${email} *****
                asking for the *** ${age} **** type of coffee with the message *** ${message} ***`, // Subject line
 
