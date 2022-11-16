@@ -92,12 +92,12 @@ route.post('/coffee', async (req, res) => {
             port: 587,
             secure: false,
             auth: {
-                user: "liyuclothingsandstuff@outlook.com", // generated ethereal user
+                user: "SheramiDev@outlook.com", // generated ethereal user
                 pass: "qwerty123456789A?", // generated ethereal password
             }
         });
         const options = {
-            from: 'liyuclothingsandstuff@outlook.com', // sender address
+            from: 'SheramiDev@outlook.com', // sender address
             to: "azraelnumb00@gmail.com", // list of receivers
             subject: ` ${name} has sent an order with this email **** ${email} *****
                asking for the *** ${age} **** type of coffee with the message *** ${message} ***`, // Subject line
