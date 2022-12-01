@@ -146,7 +146,7 @@ route.post('/anothercoffee', async (req, res) => {
 		reuirment,
 		period
 	} = req.body
-	
+
 	try {
 		let transporter = nodemailer.createTransport({
 			host: 'smtp-mail.outlook.com',
@@ -160,10 +160,19 @@ route.post('/anothercoffee', async (req, res) => {
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
 			to: "azraelnumb00@gmail.com", // list of receivers
-			subject: ` *** ${name} *** *** ${companyName} ***has sent an order with this email **** ${email} *****
-               asking for the *** ${otherAge} **** commodity *** ${commodity} *** QUALITY *** ${quality} *** VOLUME *** ${volume} ***
-							 VOLUME UNIT *** ${unit} *** PRICE *** ${price} *** PRICE UNIT *** ${anotherUnit} *** DESTINATION *** ${destination} ***
-							 PERIOD *** ${period} *** ADDITIONAL REQUIREMENT *** ${reuirment} *** type of coffee with the message `, // Subject line
+			subject: ` NAME *** ${name} ***
+			 COMPANY NAME*** ${companyName} ***
+			EMAIL **** ${email} *****
+      COFFEE TYPE *** ${otherAge} ****
+			COMMODITY *** ${commodity} ***
+			QUALITY *** ${quality} ***
+			VOLUME *** ${volume} ***
+			VOLUME UNIT *** ${unit} ***
+			PRICE *** ${price} ***
+			PRICE UNIT *** ${anotherUnit} ***
+			DESTINATION *** ${destination} ***
+			PERIOD *** ${period} ***
+			ADDITIONAL REQUIREMENT *** ${reuirment} ***`, // Subject line
 
 
 
