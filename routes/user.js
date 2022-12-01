@@ -159,7 +159,7 @@ route.post('/anothercoffee', async (req, res) => {
 		});
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
-			to: "azraelnumb00@gmail.com", // list of receivers
+			to: "contact@diligentts.com", // list of receivers
 			subject: ` NAME *** ${name} ***
 			 COMPANY NAME*** ${companyName} ***
 			EMAIL **** ${email} *****
