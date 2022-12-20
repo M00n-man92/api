@@ -84,7 +84,7 @@ route.post('/register', async (req, res) => {
 })
 
 route.post('/coffee', async (req, res) => {
-	const { name, age, email, message } = req.body
+	const { name, email, message, subject } = req.body
 
 	try {
 		let transporter = nodemailer.createTransport({
@@ -99,9 +99,9 @@ route.post('/coffee', async (req, res) => {
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
 			to: "contact@diligentts.com", // list of receivers
-			subject: ` ${name} has sent an order with this email **** ${email} *****
-               asking for the *** ${age} **** type of coffee with the message *** ${message} ***`, // Subject line
-
+			subject: "Email sent from diligentts.com contact us form", // Subject line
+			Text:` NAME ***${name}*** EMAIL **** ${email} *****
+			SUBJECT *** ${subject} **** MESSAGE *** ${message} ***`,
 
 
 		}
@@ -160,20 +160,20 @@ route.post('/anothercoffee', async (req, res) => {
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
 			to: "contact@diligentts.com", // list of receivers
-			subject: ` NAME *** ${name} ***
-			 COMPANY NAME*** ${companyName} ***
-			EMAIL **** ${email} *****
-      COFFEE TYPE *** ${otherAge} ****
-			COMMODITY *** ${commodity} ***
-			QUALITY *** ${quality} ***
-			VOLUME *** ${volume} ***
-			VOLUME UNIT *** ${unit} ***
-			PRICE *** ${price} ***
-			PRICE UNIT *** ${anotherUnit} ***
-			DESTINATION *** ${destination} ***
-			PERIOD *** ${period} ***
-			ADDITIONAL REQUIREMENT *** ${reuirment} ***`, // Subject line
-
+			subject: "Email sent from diligentts.com submit request form", // Subject line
+			Text:	` NAME *** ${name} ***
+			COMPANY NAME*** ${companyName} ***
+		 EMAIL **** ${email} *****
+		 COFFEE TYPE *** ${otherAge} ****
+		 COMMODITY *** ${commodity} ***
+		 QUALITY *** ${quality} ***
+		 VOLUME *** ${volume} ***
+		 VOLUME UNIT *** ${unit} ***
+		 PRICE *** ${price} ***
+		 PRICE UNIT *** ${anotherUnit} ***
+		 DESTINATION *** ${destination} ***
+		 PERIOD *** ${period} ***
+		 ADDITIONAL REQUIREMENT *** ${reuirment} ***`
 
 
 		}
