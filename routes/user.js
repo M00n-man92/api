@@ -98,7 +98,7 @@ route.post('/coffee', async (req, res) => {
 		});
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
-			to: "azraelnumb00@gmail.com", // list of receivers
+			to: "yosephbehabtu@gmail.com", // list of receivers
 			subject: "Email sent from diligentts.com contact us form", // Subject line
 			text:` NAME ***${name}*** EMAIL **** ${email} *****
 			SUBJECT *** ${subject} **** MESSAGE *** ${message} ***`,
@@ -159,7 +159,7 @@ route.post('/anothercoffee', async (req, res) => {
 		});
 		const options = {
 			from: 'SheramiDev@outlook.com', // sender address
-			to: "azraelnumb00@gmail.com", // list of receivers
+			to: "yosephbehabtu@gmail.com", // list of receivers
 			subject: "Email sent from diligentts.com submit request form", // Subject line
 			text:	` NAME *** ${name} ***
 			COMPANY NAME*** ${companyName} ***
