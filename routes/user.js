@@ -100,8 +100,11 @@ route.post('/coffee', async (req, res) => {
 			from: 'SheramiDev@outlook.com', // sender address
 			to: "yosephbehabtu@gmail.com", // list of receivers
 			subject: "Email sent from diligentts.com contact us form", // Subject line
-			text:` NAME ***${name}*** EMAIL **** ${email} *****
-			SUBJECT *** ${subject} **** MESSAGE *** ${message} ***`,
+			text:` 
+			NAME           ${name}
+			EMAIL         ${email}
+			SUBJECT     ${subject}
+			MESSAGE     ${message}`,
 
 
 		}
@@ -161,19 +164,18 @@ route.post('/anothercoffee', async (req, res) => {
 			from: 'SheramiDev@outlook.com', // sender address
 			to: "yosephbehabtu@gmail.com", // list of receivers
 			subject: "Email sent from diligentts.com submit request form", // Subject line
-			text:	` NAME *** ${name} ***
-			COMPANY NAME*** ${companyName} ***
-		 EMAIL **** ${email} *****
-		 COFFEE TYPE *** ${otherAge} ****
-		 COMMODITY *** ${commodity} ***
-		 QUALITY *** ${quality} ***
-		 VOLUME *** ${volume} ***
-		 VOLUME UNIT *** ${unit} ***
-		 PRICE *** ${price} ***
-		 PRICE UNIT *** ${anotherUnit} ***
-		 DESTINATION *** ${destination} ***
-		 PERIOD *** ${period} ***
-		 ADDITIONAL REQUIREMENT *** ${reuirment} ***`
+			text:	`
+		 NAME                  			 ${name}
+		 COMPANY NAME    			${companyName}
+		 EMAIL                		  ${email}
+		 COFFEE TYPE        		 ${otherAge}
+		 COMMODITY         			${commodity}
+		 QUALITY            		  ${quality}
+		 VOLUME              			 ${volume}    VOLUME UNIT        ${unit} 
+		 PRICE                 			${price}    PRICE UNIT  ${anotherUnit}
+		 DESTINATION     			${destination}
+		 PERIOD             		   ${period}
+		 ADDITIONAL REQUIREMENT ${reuirment}`
 
 
 		}
