@@ -12,14 +12,15 @@ console.log(newobj)
     try {
 
         const user = await new Product(newobj)
-
         const newuser = await user.save()
-
+        console.log(newuser);
         return res.status(201).json({ success: true, msg: "registered successfully", data: newuser })
 
     }
     catch (e) {
+        console.log(e)
         return res.status(500).json({ success: false, error: e })
+        
     }
     /* try {
         const po = await new Product(newobj)
