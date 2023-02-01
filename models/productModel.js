@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
     associate_color: [{id:{type: mongoose.Schema.ObjectId, ref:'products'},coloring:{type:String},img:{type:String}}],
     price: { type: Number ,required:true},
     inStock:{type:Boolean,default:true},
-    link:{type:String,unique:true}
+    link:{type:String}
 
 }, { timestamps: true });
 
